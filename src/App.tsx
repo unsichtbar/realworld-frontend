@@ -1,14 +1,9 @@
-import React from 'react';
-import logo from './logo.svg';
-import {Login} from './pages/login'
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link
-} from "react-router-dom";
-import './App.css';
-import { Landing } from './pages/landing';
+import React from "react";
+import logo from "./logo.svg";
+import { Login } from "./pages/login/Login";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import "./App.css";
+import { Landing } from "./pages/landing/Landing";
 
 function App() {
   return (
