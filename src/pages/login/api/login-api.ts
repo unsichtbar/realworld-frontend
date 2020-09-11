@@ -11,12 +11,12 @@ export interface PostLoginPayload {
 export interface LoginResponse {
   user: UserModel;
 }
-
+const mapToModel = (api: LoginResponse) => api.user;
 export async function postLogin(vars: {
   username: string;
   password: string;
-}): Promise<LoginResponse> {
-  return await {
+}): Promise<UserModel> {
+  const res = {
     user: {
       email: "foo@example.com",
       token: "ABC123",
@@ -24,4 +24,5 @@ export async function postLogin(vars: {
       bio: "Ich komme aus Amerika.",
     },
   };
+  return await mapToModel(res);
 }

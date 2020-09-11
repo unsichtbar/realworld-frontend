@@ -2,6 +2,7 @@ import * as React from "react";
 import { useQuery, useMutation, queryCache } from "react-query";
 
 import { postLogin, LoginResponse } from "./api/login-api";
+import { UserModel } from "../../models/UserModel";
 interface FormValue {
   value: string;
   dirty: boolean;
@@ -33,7 +34,7 @@ export const Login: React.FC<{}> = (props) => {
   const [submitted, setSubmitted] = React.useState<boolean>(false);
 
   const [login] = useMutation(postLogin, {
-    onSuccess: (user: LoginResponse) => {
+    onSuccess: (user: UserModel) => {
       console.log(user);
       alert("you were logged in");
     },
