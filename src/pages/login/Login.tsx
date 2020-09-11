@@ -1,5 +1,7 @@
 import * as React from "react";
+import { useQuery, useMutation, queryCache } from "react-query";
 
+import { postLogin, LoginResponse } from "./api/login-api";
 interface FormValue {
   value: string;
   dirty: boolean;
@@ -30,6 +32,13 @@ export const Login: React.FC<{}> = (props) => {
   const [password, setPassword] = React.useState<FormValue>(createFormValue);
   const [submitted, setSubmitted] = React.useState<boolean>(false);
 
+  const [login] = useMutation(postLogin, {
+    onSuccess: (user: LoginResponse) => {
+      console.log(user);
+      alert("you were logged in");
+    },
+  });
+
   function onUsernameChange(e: React.ChangeEvent<HTMLInputElement>) {
     e.preventDefault();
     setUsername(newFormValue(e.target.value));
@@ -59,7 +68,7 @@ export const Login: React.FC<{}> = (props) => {
       !username.errors &&
       !password.errors
     ) {
-      alert("loggin you in wowee");
+      login({ username: username.value, password: password.value });
     }
   }
 
