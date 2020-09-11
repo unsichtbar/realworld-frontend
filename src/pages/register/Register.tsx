@@ -6,7 +6,6 @@ import { postRegister } from "./api/register-api";
 import { UserModel } from "../../models/UserModel";
 import { Input } from "../../core/components/input/Input";
 import { Button } from "../../core/components/button/Button";
-import { Link } from "react-router-dom";
 interface FormValue {
   value: string;
   dirty: boolean;
@@ -34,6 +33,8 @@ function newFormValue(value: string) {
 
 export const Register: React.FC<{}> = (props) => {
   const [username, setUsername] = React.useState<FormValue>(createFormValue());
+  const [email, setEmail] = React.useState<FormValue>(createFormValue());
+
   const [password, setPassword] = React.useState<FormValue>(createFormValue);
   const [submitted, setSubmitted] = React.useState<boolean>(false);
 
@@ -47,6 +48,11 @@ export const Register: React.FC<{}> = (props) => {
   function onUsernameChange(e: React.ChangeEvent<HTMLInputElement>) {
     e.preventDefault();
     setUsername(newFormValue(e.target.value));
+  }
+
+  function onEmailChange(e: React.ChangeEvent<HTMLInputElement>) {
+    e.preventDefault();
+    setEmail(newFormValue(e.target.value));
   }
 
   function onPasswordChange(e: React.ChangeEvent<HTMLInputElement>) {
@@ -73,7 +79,11 @@ export const Register: React.FC<{}> = (props) => {
       !username.errors &&
       !password.errors
     ) {
-      login({ username: username.value, password: password.value });
+      login({
+        username: username.value,
+        email: email.value,
+        password: password.value,
+      });
     }
   }
 
@@ -89,6 +99,17 @@ export const Register: React.FC<{}> = (props) => {
             onChange={onUsernameChange}
           ></Input>
           {submitted && username.errors}
+        </span>
+
+        <span>
+          <Input
+            type="text"
+            value={email.value}
+            name="email"
+            placeholder="Email"
+            onChange={onEmailChange}
+          ></Input>
+          {submitted && email.errors}
         </span>
         <span>
           <Input

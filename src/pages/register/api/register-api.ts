@@ -1,6 +1,6 @@
 import { UserModel } from "../../../models/UserModel";
-
-const uri = "/users/login";
+import HttpClient from "../../../core/http/HttpClient";
+const uri = "/users";
 
 interface PostRegisterPayload {
   user: {
@@ -12,17 +12,18 @@ interface RegisterResponse {
   user: UserModel;
 }
 const mapToModel = (api: RegisterResponse) => api.user;
-export async function postRegister(vars: {
+export async function postRegister({
+  username,
+  email,
+  password,
+}: {
   username: string;
+  email: string;
   password: string;
 }): Promise<UserModel> {
-  const res = {
-    user: {
-      email: "foo@example.com",
-      token: "ABC123",
-      username: "alex",
-      bio: "Ich komme aus Amerika.",
-    },
-  };
+  const res = await HttpClient.post<RegisterResponse>(uri, {
+    user: { username, email, password },
+  });
+
   return await mapToModel(res);
 }
