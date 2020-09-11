@@ -1,3 +1,5 @@
+import { UserModel } from "../../../models/UserModel";
+
 export const uri = "/users/login";
 
 export interface PostLoginPayload {
@@ -7,13 +9,7 @@ export interface PostLoginPayload {
   };
 }
 export interface LoginResponse {
-  user: {
-    email: string;
-    token: string;
-    username: string;
-    bio: string;
-    image?: string;
-  };
+  user: UserModel;
 }
 
 export async function postLogin(vars: {
