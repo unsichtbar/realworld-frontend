@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import "./App.css";
 import { Landing } from "./pages/landing/Landing";
 import { ThemeProvider } from "./core/components/theme";
+import { Register } from "./pages/register/Register";
 
 function App() {
   return (
@@ -21,6 +22,9 @@ function App() {
           </ul>
         </nav>
         <Switch>
+          <Route path="/register">
+            <Register />
+          </Route>
           <Route path="/login">
             <Login />
           </Route>

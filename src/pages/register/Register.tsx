@@ -1,7 +1,8 @@
-import * as React from "react";
+import React from "react";
+
 import { useQuery, useMutation, queryCache } from "react-query";
 
-import { postLogin } from "./api/login-api";
+import { postRegister } from "./api/register-api";
 import { UserModel } from "../../models/UserModel";
 import { Input } from "../../core/components/input/Input";
 import { Button } from "../../core/components/button/Button";
@@ -31,12 +32,12 @@ function newFormValue(value: string) {
   };
 }
 
-export const Login: React.FC<{}> = (props) => {
+export const Register: React.FC<{}> = (props) => {
   const [username, setUsername] = React.useState<FormValue>(createFormValue());
   const [password, setPassword] = React.useState<FormValue>(createFormValue);
   const [submitted, setSubmitted] = React.useState<boolean>(false);
 
-  const [login] = useMutation(postLogin, {
+  const [login] = useMutation(postRegister, {
     onSuccess: (user: UserModel) => {
       console.log(user);
       alert("you were logged in");
@@ -100,12 +101,9 @@ export const Login: React.FC<{}> = (props) => {
           {submitted && password.errors}
         </span>
         <Button type="submit" onClick={submitForm}>
-          Login
+          Register
         </Button>
       </form>
-      <section>
-        Not registered? Register <Link to="/register">Here</Link>
-      </section>
     </div>
   );
 };
