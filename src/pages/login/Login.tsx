@@ -3,6 +3,8 @@ import { useQuery, useMutation, queryCache } from "react-query";
 
 import { postLogin } from "./api/login-api";
 import { UserModel } from "../../models/UserModel";
+import { Input } from "../../core/components/input/Input";
+import { Button } from "../../core/components/button/Button";
 interface FormValue {
   value: string;
   dirty: boolean;
@@ -77,28 +79,28 @@ export const Login: React.FC<{}> = (props) => {
     <div>
       <form>
         <span>
-          <input
+          <Input
             type="text"
             value={username.value}
             name="username"
             placeholder="Username"
             onChange={onUsernameChange}
-          ></input>
+          ></Input>
           {submitted && username.errors}
         </span>
         <span>
-          <input
+          <Input
             type="password"
             value={password.value}
             name="password"
             placeholder="Password"
             onChange={onPasswordChange}
-          ></input>
+          ></Input>
           {submitted && password.errors}
         </span>
-        <button type="submit" onClick={submitForm}>
+        <Button type="submit" onClick={submitForm}>
           Login
-        </button>
+        </Button>
       </form>
     </div>
   );
