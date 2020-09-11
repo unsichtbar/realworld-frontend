@@ -1,7 +1,7 @@
 import * as React from "react";
 import { useQuery, useMutation, queryCache } from "react-query";
 
-import { postLogin, LoginResponse } from "./api/login-api";
+import { postLogin } from "./api/login-api";
 import { UserModel } from "../../models/UserModel";
 interface FormValue {
   value: string;

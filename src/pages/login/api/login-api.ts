@@ -1,14 +1,14 @@
 import { UserModel } from "../../../models/UserModel";
 
-export const uri = "/users/login";
+const uri = "/users/login";
 
-export interface PostLoginPayload {
+interface PostLoginPayload {
   user: {
     email: string;
     password: string;
   };
 }
-export interface LoginResponse {
+interface LoginResponse {
   user: UserModel;
 }
 const mapToModel = (api: LoginResponse) => api.user;
