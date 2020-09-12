@@ -6,6 +6,7 @@ import { postRegister } from "./api/register-api";
 import { UserModel } from "../../models/UserModel";
 import { Input } from "../../core/components/input/Input";
 import { Button } from "../../core/components/button/Button";
+import { AuthenticationContext } from "../../core/auth/Authentication";
 interface FormValue {
   value: string;
   dirty: boolean;
@@ -38,10 +39,12 @@ export const Register: React.FC<{}> = (props) => {
   const [password, setPassword] = React.useState<FormValue>(createFormValue);
   const [submitted, setSubmitted] = React.useState<boolean>(false);
 
+  const { setUser } = React.useContext(AuthenticationContext);
+
   const [register] = useMutation(postRegister, {
     onSuccess: (user: UserModel) => {
       console.log(user);
-      alert("you were logged in    !");
+      setUser(user);
     },
   });
 

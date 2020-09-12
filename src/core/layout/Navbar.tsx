@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { AuthenticationContext } from "../auth/Authentication";
 
 export const Navbar: React.FC<{}> = (props) => {
-  const user = React.useContext(AuthenticationContext);
+  const { user } = React.useContext(AuthenticationContext);
   return (
     <nav>
       <ul>

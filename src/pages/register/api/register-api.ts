@@ -30,6 +30,15 @@ export async function postRegister({
       password,
     },
   };
-  const res = await HttpClient.post<RegisterResponse>(uri, body);
+  //const res = await HttpClient.post<RegisterResponse>(uri, body);
+  const res: RegisterResponse = {
+    user: {
+      bio: "ich komme aus Amerika",
+      email: "alex@example.com",
+      token: "ABC.123.456",
+      username: "alex",
+      image: "https://i.ytimg.com/vi/nlYlNF30bVg/hqdefault.jpg",
+    },
+  };
   return await mapToModel(res);
 }
