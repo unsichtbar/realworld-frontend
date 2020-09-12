@@ -8,22 +8,14 @@ import { ThemeProvider } from "./core/components/theme";
 import { Register } from "./pages/register/Register";
 import { Article } from "./pages/article/Article";
 import { AuthenticationProvider } from "./core/auth/Authentication";
+import { Navbar } from "./core/layout/Navbar";
 
 function App() {
   return (
     <AuthenticationProvider>
       <ThemeProvider>
         <Router>
-          <nav>
-            <ul>
-              <li>
-                <Link to="/">Home</Link>
-              </li>
-              <li>
-                <Link to="/login">Login</Link>
-              </li>
-            </ul>
-          </nav>
+          <Navbar />
           <Switch>
             <Route path="/article/:id">
               <Article />

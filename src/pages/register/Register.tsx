@@ -38,7 +38,7 @@ export const Register: React.FC<{}> = (props) => {
   const [password, setPassword] = React.useState<FormValue>(createFormValue);
   const [submitted, setSubmitted] = React.useState<boolean>(false);
 
-  const [login] = useMutation(postRegister, {
+  const [register] = useMutation(postRegister, {
     onSuccess: (user: UserModel) => {
       console.log(user);
       alert("you were logged in    !");
@@ -79,7 +79,7 @@ export const Register: React.FC<{}> = (props) => {
       !username.errors &&
       !password.errors
     ) {
-      login({
+      register({
         username: username.value,
         email: email.value,
         password: password.value,

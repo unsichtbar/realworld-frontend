@@ -5,6 +5,7 @@ const uri = "/users";
 interface PostRegisterPayload {
   user: {
     email: string;
+    username: string;
     password: string;
   };
 }
@@ -22,8 +23,13 @@ export async function postRegister({
   email: string;
   password: string;
 }): Promise<UserModel> {
-  const res = await HttpClient.post<RegisterResponse>(uri, {
-    user: { username, email, password },
-  });
+  const body: PostRegisterPayload = {
+    user: {
+      username,
+      email,
+      password,
+    },
+  };
+  const res = await HttpClient.post<RegisterResponse>(uri, body);
   return await mapToModel(res);
 }
