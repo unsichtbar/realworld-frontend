@@ -7,7 +7,14 @@ export interface ApiResponse {
 
 type HttpMethod = "GET" | "POST" | "PUT" | "DELETE" | "HEAD" | "OPTIONS";
 
-class HttpClient {
+export interface HttpClient {
+  get: <T>(url: string) => Promise<T>;
+  post: <T>(url: string, body: any) => Promise<T>;
+  delete: <T>(url: string, body: any) => Promise<T>;
+  put: <T>(url: string, body: any) => Promise<T>;
+}
+
+class HttpClientImpl implements HttpClient {
   api_base = "/api";
 
   async get<T extends ApiResponse>(url: string): Promise<T> {
@@ -47,4 +54,8 @@ class HttpClient {
   }
 }
 
-export default new HttpClient();
+function createClient(): HttpClient {
+  return new HttpClientImpl();
+}
+
+export default createClient();

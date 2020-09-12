@@ -4,6 +4,7 @@ import { useQuery } from "react-query";
 import { getArticle, getArticleComments } from "./api/article-api";
 import { ArticleModel } from "../../models/ArticleModel";
 import { CommentModel } from "../../models/CommentModel";
+import styled from "styled-components";
 
 export const Article: React.FC<{}> = () => {
   const { id }: { id: string } = useParams();
@@ -17,14 +18,14 @@ export const Article: React.FC<{}> = () => {
   return (
     <section>
       <div>
-        {articleQuery.isFetching && <span>loading</span>}
+        {articleQuery.isFetching && <span>Loading</span>}
         {articleQuery.isFetched && !articleQuery.error && (
           <ArticleDisplay article={articleQuery.data} />
         )}
       </div>
       <div>
         {comments.data?.map((comment) => (
-          <CommentDisplay comment={comment} />
+          <CommentDisplay comment={comment} key={comment.id} />
         ))}
       </div>
     </section>
@@ -32,14 +33,25 @@ export const Article: React.FC<{}> = () => {
 };
 
 const ArticleDisplay: React.FC<{ article?: ArticleModel }> = (props) => {
-  if (props.article)
+  if (props.article) {
+    const { author } = props.article;
+    console.log(author.image);
     return (
-      <div>
+      <>
         <div>{props.article.title}</div>
-        <span>Author {props.article.author.username}</span>
-      </div>
+        <div>
+          <span>
+            <Avatar src={author.image ? author.image : ""} />
+          </span>
+          <span>
+            <span>{author.username}</span>
+            <span>{props.article.createdAt.toUTCString()}</span>
+          </span>
+        </div>
+        <div>{props.article.body}</div>
+      </>
     );
-  else return null;
+  } else return null;
 };
 
 const CommentDisplay: React.FC<{ comment: CommentModel }> = (props) => {
@@ -50,3 +62,9 @@ const CommentDisplay: React.FC<{ comment: CommentModel }> = (props) => {
     </div>
   );
 };
+
+const Avatar = styled.img`
+  height: 2em;
+  width: 2em;
+  border-radius: 25%;
+`;
