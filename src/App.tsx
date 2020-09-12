@@ -7,39 +7,42 @@ import { Landing } from "./pages/landing/Landing";
 import { ThemeProvider } from "./core/components/theme";
 import { Register } from "./pages/register/Register";
 import { Article } from "./pages/article/Article";
+import { AuthenticationProvider } from "./core/auth/Authentication";
 
 function App() {
   return (
-    <ThemeProvider>
-      <Router>
-        <nav>
-          <ul>
-            <li>
-              <Link to="/">Home</Link>
-            </li>
-            <li>
-              <Link to="/login">Login</Link>
-            </li>
-          </ul>
-        </nav>
-        <Switch>
-          <Route path="/article/:id">
-            <Article />
-          </Route>
-          <Route path="/register">
-            <Register />
-          </Route>
-          <Route path="/login">
-            <Login />
-          </Route>
-          <Route path="/">
-            <div>
-              <Landing />
-            </div>
-          </Route>
-        </Switch>
-      </Router>
-    </ThemeProvider>
+    <AuthenticationProvider>
+      <ThemeProvider>
+        <Router>
+          <nav>
+            <ul>
+              <li>
+                <Link to="/">Home</Link>
+              </li>
+              <li>
+                <Link to="/login">Login</Link>
+              </li>
+            </ul>
+          </nav>
+          <Switch>
+            <Route path="/article/:id">
+              <Article />
+            </Route>
+            <Route path="/register">
+              <Register />
+            </Route>
+            <Route path="/login">
+              <Login />
+            </Route>
+            <Route path="/">
+              <div>
+                <Landing />
+              </div>
+            </Route>
+          </Switch>
+        </Router>
+      </ThemeProvider>
+    </AuthenticationProvider>
   );
 }
 

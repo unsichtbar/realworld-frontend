@@ -13,7 +13,9 @@ const defaultTheme: Theme = {
   primary: "mediumseagreen",
   secondary: "mediumpurple",
 };
-const ThemeContext = React.createContext({ theme: defaultTheme });
+const ThemeContext = React.createContext<{ theme: Theme }>({
+  theme: defaultTheme,
+});
 
 export const ThemeProvider: React.FC<any> = (props) => {
   const [theme, setTheme] = React.useState<Theme>(defaultTheme);
