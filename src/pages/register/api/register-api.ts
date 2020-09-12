@@ -1,5 +1,5 @@
 import { UserModel } from "../../../models/UserModel";
-import HttpClient from "../../../core/http/HttpClient";
+import HttpClient, { ApiResponse } from "../../../core/http/HttpClient";
 const uri = "/users";
 
 interface PostRegisterPayload {
@@ -8,9 +8,10 @@ interface PostRegisterPayload {
     password: string;
   };
 }
-interface RegisterResponse {
+interface RegisterResponse extends ApiResponse {
   user: UserModel;
 }
+
 const mapToModel = (api: RegisterResponse) => api.user;
 export async function postRegister({
   username,
@@ -24,6 +25,5 @@ export async function postRegister({
   const res = await HttpClient.post<RegisterResponse>(uri, {
     user: { username, email, password },
   });
-
   return await mapToModel(res);
 }

@@ -6,6 +6,7 @@ import "./App.css";
 import { Landing } from "./pages/landing/Landing";
 import { ThemeProvider } from "./core/components/theme";
 import { Register } from "./pages/register/Register";
+import { Article } from "./pages/article/Article";
 
 function App() {
   return (
@@ -22,6 +23,9 @@ function App() {
           </ul>
         </nav>
         <Switch>
+          <Route path="/article/:id">
+            <Article />
+          </Route>
           <Route path="/register">
             <Register />
           </Route>

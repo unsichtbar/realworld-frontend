@@ -41,7 +41,7 @@ export const Register: React.FC<{}> = (props) => {
   const [login] = useMutation(postRegister, {
     onSuccess: (user: UserModel) => {
       console.log(user);
-      alert("you were logged in");
+      alert("you were logged in    !");
     },
   });
 
