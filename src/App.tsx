@@ -10,6 +10,7 @@ import { Article } from "./pages/article/view/Article";
 import { AuthenticationProvider } from "./core/auth/Authentication";
 import { Navbar } from "./core/layout/Navbar";
 import { CreateArticle } from "./pages/article/create/CreateArticle";
+import { Profile } from "./pages/profile/Profile";
 
 function App() {
   return (
@@ -18,6 +19,9 @@ function App() {
         <Router>
           <Navbar />
           <Switch>
+            <Route path="/profile/:id">
+              <Profile />
+            </Route>
             <Route path="/article/create">
               <CreateArticle />
             </Route>
