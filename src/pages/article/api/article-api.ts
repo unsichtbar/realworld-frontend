@@ -1,3 +1,4 @@
+import HttpClient from "../../../core/http/HttpClient";
 import { ArticleModel } from "../../../models/ArticleModel";
 import { CommentModel } from "../../../models/CommentModel";
 
@@ -48,4 +49,18 @@ export async function getArticleComments(
     },
   ];
   return res;
+}
+
+interface CreateArticleRequestPayload {
+  article: {
+    title: string;
+    description: string;
+    body: string;
+    tagList?: string[];
+  };
+}
+export async function createArticle(
+  payload: CreateArticleRequestPayload
+): Promise<any> {
+  HttpClient.post("/api/articles", payload);
 }

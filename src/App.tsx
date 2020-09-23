@@ -9,6 +9,7 @@ import { Register } from "./pages/register/Register";
 import { Article } from "./pages/article/Article";
 import { AuthenticationProvider } from "./core/auth/Authentication";
 import { Navbar } from "./core/layout/Navbar";
+import { CreateArticle } from "./pages/article/CreateArticle";
 
 function App() {
   return (
@@ -17,6 +18,9 @@ function App() {
         <Router>
           <Navbar />
           <Switch>
+            <Route path="/article/create">
+              <CreateArticle />
+            </Route>
             <Route path="/article/:id">
               <Article />
             </Route>

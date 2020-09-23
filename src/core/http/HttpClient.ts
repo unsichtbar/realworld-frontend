@@ -12,10 +12,16 @@ export interface HttpClient {
   post: <T>(url: string, body: any) => Promise<T>;
   delete: <T>(url: string, body: any) => Promise<T>;
   put: <T>(url: string, body: any) => Promise<T>;
+  setAuthToken: (token: string) => void;
 }
 
 class HttpClientImpl implements HttpClient {
   api_base = "/api";
+  _user_token = "";
+
+  setAuthToken(token: string) {
+    this._user_token = token;
+  }
 
   async get<T extends ApiResponse>(url: string): Promise<T> {
     return this.executeRequest(url, { method: "GET" });
@@ -45,6 +51,9 @@ class HttpClientImpl implements HttpClient {
       const res = await fetch(uri, {
         body: options.body,
         method: options.method,
+        headers: {
+          Authorization: "Token " + this._user_token,
+        },
       });
       const json = await res.json();
       return json;
