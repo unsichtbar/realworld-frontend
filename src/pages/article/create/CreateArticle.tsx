@@ -30,8 +30,8 @@ export const CreateArticle: React.FC<any> = (props) => {
   ) {
     e.preventDefault();
     const { name, value } = e.currentTarget as {
-      name: keyof CreateArticleFormInputs;
-      value: any;
+      name: keyof Omit<CreateArticleFormInputs, "tagList">;
+      value: string;
     };
     const cloned: CreateArticleFormInputs = JSON.parse(
       JSON.stringify(formValues)
