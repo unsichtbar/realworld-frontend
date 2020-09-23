@@ -6,10 +6,10 @@ import "./App.css";
 import { Landing } from "./pages/landing/Landing";
 import { ThemeProvider } from "./core/components/theme";
 import { Register } from "./pages/register/Register";
-import { Article } from "./pages/article/Article";
+import { Article } from "./pages/article/view/Article";
 import { AuthenticationProvider } from "./core/auth/Authentication";
 import { Navbar } from "./core/layout/Navbar";
-import { CreateArticle } from "./pages/article/CreateArticle";
+import { CreateArticle } from "./pages/article/create/CreateArticle";
 
 function App() {
   return (

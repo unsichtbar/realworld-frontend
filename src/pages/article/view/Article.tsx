@@ -1,9 +1,9 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 import { useQuery } from "react-query";
-import { getArticle, getArticleComments } from "./api/article-api";
-import { ArticleModel } from "../../models/ArticleModel";
-import { CommentModel } from "../../models/CommentModel";
+import { getArticle, getArticleComments } from "./article-api";
+import { ArticleModel } from "../../../models/ArticleModel";
+import { CommentModel } from "../../../models/CommentModel";
 import styled from "styled-components";
 
 export const Article: React.FC<{}> = () => {

@@ -1,7 +1,8 @@
 import React from "react";
-import { TagModel } from "../../models/TagModel";
+import { TagModel } from "../../../models/TagModel";
+import { createArticle } from "./create-article-api";
 
-interface CreateArticleFormInputs {
+export interface CreateArticleFormInputs {
   title: string;
   description: string;
   body: string;
@@ -21,6 +22,7 @@ export const CreateArticle: React.FC<any> = (props) => {
   function submitForm(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     console.log(formValues);
+    createArticle(formValues);
   }
 
   function changeForm(
