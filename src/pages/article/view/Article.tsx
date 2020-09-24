@@ -32,7 +32,7 @@ export const Article: React.FC<{}> = () => {
   );
 };
 
-const ArticleDisplay: React.FC<{ article?: ArticleModel }> = (props) => {
+export const ArticleDisplay: React.FC<{ article?: ArticleModel }> = (props) => {
   if (props.article) {
     const { author } = props.article;
     return (
