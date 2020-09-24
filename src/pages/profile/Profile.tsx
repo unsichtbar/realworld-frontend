@@ -1,6 +1,7 @@
 import React from "react";
 import { useQuery } from "react-query";
 import { useParams } from "react-router-dom";
+import { Tabs, Tab } from "../../core/components/tabs/tabs";
 import { ArticleDisplay } from "../article/view/Article";
 import { getProfile, getProfileArticles } from "./profiles-api";
 
@@ -31,15 +32,19 @@ export const Profile: React.FC<any> = (props) => {
         <div>{data.following}</div>
 
         <section>
-          <div className="profile-articles">
-            {profileArticles.isFetched && (
-              <div>
-                {profileArticles.data?.map((article) => (
-                  <ArticleDisplay article={article} />
-                ))}
+          <Tabs initialTab="bob">
+            <Tab title="Articles">
+              <div className="profile-articles">
+                {profileArticles.isFetched && (
+                  <div>
+                    {profileArticles.data?.map((article) => (
+                      <ArticleDisplay key={article.slug} article={article} />
+                    ))}
+                  </div>
+                )}
               </div>
-            )}
-          </div>
+            </Tab>
+          </Tabs>
         </section>
       </div>
     );
