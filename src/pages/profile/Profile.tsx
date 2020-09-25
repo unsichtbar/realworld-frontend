@@ -2,8 +2,12 @@ import React from "react";
 import { useQuery } from "react-query";
 import { useParams } from "react-router-dom";
 import { Tabs, Tab } from "../../core/components/tabs/tabs";
-import { ArticleDisplay } from "../article/view/Article";
-import { getProfile, getProfileArticles } from "./profiles-api";
+import { Article, ArticleDisplay } from "../article/view/Article";
+import {
+  getProfile,
+  getProfileArticles,
+  getProfilesFavoritedArticles,
+} from "./profiles-api";
 
 export const Profile: React.FC<any> = (props) => {
   const { id }: { id: string } = useParams();
@@ -15,6 +19,17 @@ export const Profile: React.FC<any> = (props) => {
     ["profileArticles", { author: id }],
     getProfileArticles
   );
+  const profileFavoritedArticles = useQuery(
+    ["profileFavoritedArticles", { favoritedBy: id }],
+    getProfilesFavoritedArticles
+  );
+
+  function followUser() {
+    alert("user followed");
+  }
+  function unfollowUser() {
+    alert("user unfollowed");
+  }
   if (isLoading) return <div>Loading...</div>;
   if (isError) return <div>Ooops. something bad happened</div>;
   if (data) {
@@ -29,7 +44,11 @@ export const Profile: React.FC<any> = (props) => {
           />
         </div>
         <div>{data.bio}</div>
-        <div>{data.following}</div>
+        {data.following ? (
+          <div onClick={unfollowUser}>Unfollow {data.username}</div>
+        ) : (
+          <div onClick={followUser}>Follow {data.username}</div>
+        )}
 
         <section>
           <Tabs initialTab="bob">
@@ -42,6 +61,13 @@ export const Profile: React.FC<any> = (props) => {
                     ))}
                   </div>
                 )}
+              </div>
+            </Tab>
+            <Tab title="Favorited Articles">
+              <div className="favorited-articles">
+                {profileFavoritedArticles.data?.map((article) => (
+                  <ArticleDisplay key={article.slug} article={article} />
+                ))}
               </div>
             </Tab>
           </Tabs>
