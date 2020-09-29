@@ -1,5 +1,7 @@
 import React from "react";
+import { AuthenticationContext } from "../../../core/auth/Authentication";
 import { TagModel } from "../../../models/TagModel";
+import { LoginRedirect } from "../../login/LoginRedirect";
 import { createArticle } from "./create-article-api";
 
 export interface CreateArticleFormInputs {
@@ -17,7 +19,12 @@ const initialFormValues: CreateArticleFormInputs = {
 };
 
 export const CreateArticle: React.FC<any> = (props) => {
+  const { user } = React.useContext(AuthenticationContext);
   const [formValues, setFormValues] = React.useState(initialFormValues);
+
+  if (!user) {
+    return <LoginRedirect />;
+  }
 
   function submitForm(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();

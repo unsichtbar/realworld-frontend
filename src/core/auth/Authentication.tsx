@@ -1,18 +1,38 @@
 import React from "react";
 import { UserModel } from "../../models/UserModel";
 
-const initialUser: UserModel | null = null;
+function initialUser(): UserModel | null {
+  const stored = localStorage.getItem("user");
+  if (!stored) {
+    return null;
+  }
+  const parsed = JSON.parse(stored);
+  return parsed;
+}
 
-const AuthContext = React.createContext({
-  user: null,
-  setUser: (user: UserModel | null) => {},
-});
+//const initialUser: UserModel | null = JSON.parse(localStorage.getItem('user') || null) || null;
+
+const initialValue: {
+  user: UserModel | null;
+  setUser: (user: UserModel | null) => {};
+} = {
+  user: initialUser(),
+  setUser: (user: any) => {},
+} as any;
+const AuthContext = React.createContext(initialValue);
 
 export const AuthenticationProvider: React.FC<{}> = (props) => {
-  const [user, setUser] = React.useState(initialUser);
+  const [user, setUser] = React.useState(initialUser());
+
+  function setUserWithLocalStorage(user: UserModel | null) {
+    setUser(user as any);
+    localStorage.setItem("user", JSON.stringify(user));
+  }
   return (
     <>
-      <AuthContext.Provider value={{ user, setUser: setUser as any }}>
+      <AuthContext.Provider
+        value={{ user, setUser: setUserWithLocalStorage as any }}
+      >
         {props.children}
       </AuthContext.Provider>
     </>
