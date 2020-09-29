@@ -26,7 +26,9 @@ export const AuthenticationProvider: React.FC<{}> = (props) => {
 
   function setUserWithLocalStorage(user: UserModel | null) {
     setUser(user as any);
-    localStorage.setItem("user", JSON.stringify(user));
+    if (!user) {
+      localStorage.setItem("user", "");
+    } else localStorage.setItem("user", JSON.stringify(user));
   }
   return (
     <>

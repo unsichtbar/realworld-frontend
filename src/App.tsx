@@ -1,13 +1,22 @@
 import React from "react";
 import logo from "./logo.svg";
 import { Login } from "./pages/login/Login";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+  Redirect,
+} from "react-router-dom";
 import "./App.css";
 import { Landing } from "./pages/landing/Landing";
 import { ThemeProvider } from "./core/components/theme";
 import { Register } from "./pages/register/Register";
 import { Article } from "./pages/article/view/Article";
-import { AuthenticationProvider } from "./core/auth/Authentication";
+import {
+  AuthenticationContext,
+  AuthenticationProvider,
+} from "./core/auth/Authentication";
 import { Navbar } from "./core/layout/Navbar";
 import { CreateArticle } from "./pages/article/create/CreateArticle";
 import { Profile } from "./pages/profile/Profile";
@@ -34,6 +43,9 @@ function App() {
             <Route path="/login">
               <Login />
             </Route>
+            <Route path="/logout">
+              <Logout />
+            </Route>
             <Route path="/">
               <div>
                 <Landing />
@@ -45,5 +57,18 @@ function App() {
     </AuthenticationProvider>
   );
 }
+
+const Logout: React.FC<{}> = () => {
+  const { setUser } = React.useContext(AuthenticationContext);
+  const [timedOut, setTimedout] = React.useState(false);
+
+  setTimeout(() => {
+    setTimedout(true);
+    setUser(null);
+  }, 2000);
+  if (!timedOut)
+    return <div>You will be logged out and redirected to the home page.</div>;
+  return <Redirect to="/" />;
+};
 
 export default App;
