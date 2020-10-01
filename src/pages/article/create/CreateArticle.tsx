@@ -1,8 +1,12 @@
 import React from "react";
 import { AuthenticationContext } from "../../../core/auth/Authentication";
+import { Box } from "../../../core/components/box/box";
+import { Input } from "../../../core/components/input/Input";
+import { Button } from "../../../core/components/button/Button";
 import { TagModel } from "../../../models/TagModel";
 import { LoginRedirect } from "../../login/LoginRedirect";
 import { createArticle } from "./create-article-api";
+import { TextArea } from "../../../core/components/textarea/TextArea";
 
 export interface CreateArticleFormInputs {
   title: string;
@@ -47,30 +51,37 @@ export const CreateArticle: React.FC<any> = (props) => {
     setFormValues(cloned);
   }
   return (
-    <>
+    <Box>
       <form onSubmit={submitForm}>
-        <input
-          type="text"
-          name="title"
-          placeholder="title"
-          value={formValues.title}
-          onChange={changeForm}
-        ></input>
-        <input
-          type="text"
-          name="description"
-          placeholder="description"
-          value={formValues.description}
-          onChange={changeForm}
-        ></input>
-        <textarea
+        <div>
+          <Input
+            type="text"
+            name="title"
+            placeholder="title"
+            value={formValues.title}
+            onChange={changeForm}
+          />
+        </div>
+        <div>
+          <Input
+            type="text"
+            name="description"
+            placeholder="description"
+            value={formValues.description}
+            onChange={changeForm}
+          />
+        </div>
+        <TextArea
           name="body"
           placeholder="body"
           value={formValues.body}
           onChange={changeForm}
-        ></textarea>
-        <button type="submit">Submit</button>
+          size="sm"
+        />
+        <div>
+          <Button type="submit">Submit</Button>
+        </div>{" "}
       </form>
-    </>
+    </Box>
   );
 };

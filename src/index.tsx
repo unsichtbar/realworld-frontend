@@ -1,13 +1,16 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import { queryCache, ReactQueryCacheProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query-devtools";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 
 ReactDOM.render(
   <React.StrictMode>
-    <ReactQueryDevtools initialIsOpen />
-    <App />
+    <ReactQueryCacheProvider queryCache={queryCache}>
+      <ReactQueryDevtools initialIsOpen />
+      <App />
+    </ReactQueryCacheProvider>
   </React.StrictMode>,
   document.getElementById("root")
 );
