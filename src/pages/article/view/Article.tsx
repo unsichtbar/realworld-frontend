@@ -5,6 +5,8 @@ import { getArticle, getArticleComments } from "./article-api";
 import { ArticleModel } from "../../../models/ArticleModel";
 import { CommentModel } from "../../../models/CommentModel";
 import styled from "styled-components";
+import { Box } from "../../../core/components/box/box";
+import { Container } from "../../../core/components/container/Container";
 
 export const Article: React.FC<{}> = () => {
   const { id }: { id: string } = useParams();
@@ -36,19 +38,32 @@ export const ArticleDisplay: React.FC<{ article?: ArticleModel }> = (props) => {
   if (props.article) {
     const { author } = props.article;
     return (
-      <>
-        <div>{props.article.title}</div>
-        <div>
-          <span>
-            <Avatar src={author.image ? author.image : ""} />
-          </span>
-          <span>
+      <Box>
+        <Box
+          style={{
+            backgroundColor: "#333",
+            color: "#FFF",
+            paddingBottom: "2em",
+          }}
+        >
+          <Container>
+            <h1 style={{ padding: "1em" }}>{props.article.title}</h1>
+            <span>
+              <Avatar
+                src={author.image ? author.image : ""}
+                alt={"Author profile image"}
+              />
+            </span>
             <span>{author.username}</span>
-            <span>{props.article.createdAt.toUTCString()}</span>
-          </span>
-        </div>
-        <div>{props.article.body}</div>
-      </>
+            <span>{props.article.createdAt.toISOString()}</span>
+          </Container>
+        </Box>
+        <Container style={{ marginTop: "2em" }}>
+          {props.article.body}
+
+          <hr />
+        </Container>
+      </Box>
     );
   } else return null;
 };
