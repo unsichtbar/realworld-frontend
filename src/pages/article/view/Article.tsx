@@ -25,11 +25,13 @@ export const Article: React.FC<{}> = () => {
           <ArticleDisplay article={articleQuery.data} />
         )}
       </div>
-      <div>
-        {comments.data?.map((comment) => (
-          <CommentDisplay comment={comment} key={comment.id} />
-        ))}
-      </div>
+      <Container>
+        <Container>
+          {comments.data?.map((comment) => (
+            <CommentDisplay comment={comment} key={comment.id} />
+          ))}
+        </Container>
+      </Container>
     </section>
   );
 };
@@ -60,7 +62,6 @@ export const ArticleDisplay: React.FC<{ article?: ArticleModel }> = (props) => {
         </Box>
         <Container style={{ marginTop: "2em" }}>
           {props.article.body}
-
           <hr />
         </Container>
       </Box>
@@ -77,7 +78,7 @@ const CommentDisplay: React.FC<{ comment: CommentModel }> = (props) => {
   );
 };
 
-const Avatar = styled.img`
+export const Avatar = styled.img`
   height: 2em;
   width: 2em;
   border-radius: 25%;
