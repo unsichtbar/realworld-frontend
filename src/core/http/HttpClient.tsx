@@ -15,11 +15,8 @@ export function useHttpClient() {
 export const HttpClientProvider: React.FC<{ client?: HttpClient }> = (
   props
 ) => {
-  return (
-    <context.Provider value={props.client ? props.client : createClient()}>
-      {props.children}
-    </context.Provider>
-  );
+  const client = props.client ?? clientInstance;
+  return <context.Provider value={client}>{props.children}</context.Provider>;
 };
 
 export interface ApiResponse {
@@ -27,32 +24,29 @@ export interface ApiResponse {
     [key: string]: string[];
   };
 }
-
-type Errors = { errors: { [key: string]: string[] } };
-
 type HttpMethod = "GET" | "POST" | "PUT" | "DELETE" | "HEAD" | "OPTIONS";
 
 class HttpClientImpl implements HttpClient {
   api_base = "/api";
   _user_token = "";
 
-  setAuthToken(token: string) {
+  public setAuthToken(token: string) {
     this._user_token = token;
   }
 
-  async get<T extends ApiResponse>(url: string): Promise<T> {
+  public async get<T extends ApiResponse>(url: string): Promise<T> {
     return this.executeRequest(url, { method: "GET" });
   }
 
-  async post<T extends ApiResponse>(url: string, body: any): Promise<T> {
+  public async post<T extends ApiResponse>(url: string, body: any): Promise<T> {
     return this.executeRequest(url, { body, method: "POST" });
   }
 
-  async delete(url: string, body: any) {
+  public async delete(url: string, body: any) {
     return this.executeRequest(url, { body, method: "DELETE" });
   }
 
-  async put(url: string, body: any) {
+  public async put(url: string, body: any) {
     return this.executeRequest(url, { body, method: "PUT" });
   }
 
@@ -84,4 +78,5 @@ function createClient(): HttpClient {
   return new HttpClientImpl();
 }
 
-const context = React.createContext(createClient());
+const clientInstance = createClient();
+const context = React.createContext(clientInstance);

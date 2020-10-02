@@ -1,5 +1,5 @@
 import { UserModel } from "../../../models/UserModel";
-import HttpClient, { ApiResponse } from "../../../core/http/HttpClient";
+import { ApiResponse } from "../../../core/http/HttpClient";
 const uri = "/users";
 
 interface PostRegisterPayload {

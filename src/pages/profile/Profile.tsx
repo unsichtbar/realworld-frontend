@@ -4,25 +4,18 @@ import { useParams } from "react-router-dom";
 import { Tabs, Tab } from "../../core/components/tabs/tabs";
 import { Article, ArticleDisplay } from "../article/view/Article";
 import {
-  getProfile,
-  getProfileArticles,
-  getProfilesFavoritedArticles,
+  useProfile,
+  useProfileArticles,
+  useProfilesFavoritedArticles,
 } from "./profiles-api";
 
 export const Profile: React.FC<any> = (props) => {
   const { id }: { id: string } = useParams();
-  const { isLoading, isError, data, error } = useQuery(
-    ["profile", id],
-    getProfile
-  );
-  const profileArticles = useQuery(
-    ["profileArticles", { author: id }],
-    getProfileArticles
-  );
-  const profileFavoritedArticles = useQuery(
-    ["profileFavoritedArticles", { favoritedBy: id }],
-    getProfilesFavoritedArticles
-  );
+  const { isLoading, isError, data, error } = useProfile(id);
+  const profileArticles = useProfileArticles({ author: id });
+  const profileFavoritedArticles = useProfilesFavoritedArticles({
+    favoritedBy: id,
+  });
 
   function followUser() {
     alert("user followed");

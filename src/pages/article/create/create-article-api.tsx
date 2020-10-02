@@ -1,4 +1,4 @@
-import HttpClient from "../../../core/http/HttpClient";
+import { HttpClient } from "../../../core/http/HttpClient";
 import { CreateArticleFormInputs } from "./CreateArticle";
 
 interface CreateArticleRequestPayload {
@@ -10,10 +10,11 @@ interface CreateArticleRequestPayload {
   };
 }
 export async function createArticle(
-  payload: CreateArticleFormInputs
+  payload: CreateArticleFormInputs,
+  httpClient: HttpClient
 ): Promise<any> {
   const mapped: CreateArticleRequestPayload = mapToHttp(payload);
-  HttpClient.post("/api/articles", mapped);
+  httpClient.post("/api/articles", mapped);
 }
 
 function mapToHttp(formInputs: CreateArticleFormInputs) {

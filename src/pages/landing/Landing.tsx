@@ -5,10 +5,10 @@ import { Box } from "../../core/components/box/box";
 import { Container } from "../../core/components/container/Container";
 import { ArticleModel } from "../../models/ArticleModel";
 import { Avatar } from "../article/view/Article";
-import { getGlobalFeed } from "./landing-api";
+import { useFeed } from "./landing-api";
 
 export const Landing: React.FC<{}> = (props) => {
-  const articles = useQuery("globalFeed", getGlobalFeed);
+  const articles = useFeed();
   return (
     <Box>
       <section>App Name</section>

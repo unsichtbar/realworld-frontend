@@ -1,7 +1,6 @@
 import React from "react";
 import { useParams } from "react-router-dom";
-import { useQuery } from "react-query";
-import { getArticle, getArticleComments } from "./article-api";
+import { useArticle, useArticleComments } from "./article-api";
 import { ArticleModel } from "../../../models/ArticleModel";
 import { CommentModel } from "../../../models/CommentModel";
 import styled from "styled-components";
@@ -10,19 +9,15 @@ import { Container } from "../../../core/components/container/Container";
 
 export const Article: React.FC<{}> = () => {
   const { id }: { id: string } = useParams();
-  const articleQuery = useQuery(["article", { slug: id }], getArticle);
-
-  const comments = useQuery(
-    ["articleComments", { slug: id }],
-    getArticleComments
-  );
+  const article = useArticle(id);
+  const comments = useArticleComments(id);
 
   return (
     <section>
       <div>
-        {articleQuery.isFetching && <span>Loading</span>}
-        {articleQuery.isFetched && !articleQuery.error && (
-          <ArticleDisplay article={articleQuery.data} />
+        {article.isFetching && <span>Loading</span>}
+        {article.isFetched && !article.error && (
+          <ArticleDisplay article={article.data} />
         )}
       </div>
       <Container>
