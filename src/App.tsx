@@ -20,41 +20,44 @@ import {
 import { Navbar } from "./core/layout/Navbar";
 import { CreateArticle } from "./pages/article/create/CreateArticle";
 import { Profile } from "./pages/profile/Profile";
+import { HttpClientProvider } from "./core/http/HttpClient";
 
 function App() {
   return (
-    <AuthenticationProvider>
-      <ThemeProvider>
-        <Router>
-          <Navbar />
-          <Switch>
-            <Route path="/profile/:id">
-              <Profile />
-            </Route>
-            <Route path="/article/create">
-              <CreateArticle />
-            </Route>
-            <Route path="/article/:id">
-              <Article />
-            </Route>
-            <Route path="/register">
-              <Register />
-            </Route>
-            <Route path="/login">
-              <Login />
-            </Route>
-            <Route path="/logout">
-              <Logout />
-            </Route>
-            <Route path="/">
-              <div>
-                <Landing />
-              </div>
-            </Route>
-          </Switch>
-        </Router>
-      </ThemeProvider>
-    </AuthenticationProvider>
+    <HttpClientProvider>
+      <AuthenticationProvider>
+        <ThemeProvider>
+          <Router>
+            <Navbar />
+            <Switch>
+              <Route path="/profile/:id">
+                <Profile />
+              </Route>
+              <Route path="/article/create">
+                <CreateArticle />
+              </Route>
+              <Route path="/article/:id">
+                <Article />
+              </Route>
+              <Route path="/register">
+                <Register />
+              </Route>
+              <Route path="/login">
+                <Login />
+              </Route>
+              <Route path="/logout">
+                <Logout />
+              </Route>
+              <Route path="/">
+                <div>
+                  <Landing />
+                </div>
+              </Route>
+            </Switch>
+          </Router>
+        </ThemeProvider>
+      </AuthenticationProvider>
+    </HttpClientProvider>
   );
 }
 

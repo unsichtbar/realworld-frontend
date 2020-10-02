@@ -1,11 +1,4 @@
-type Errors = { errors: { [key: string]: string[] } };
-export interface ApiResponse {
-  errors?: {
-    [key: string]: string[];
-  };
-}
-
-type HttpMethod = "GET" | "POST" | "PUT" | "DELETE" | "HEAD" | "OPTIONS";
+import React from "react";
 
 export interface HttpClient {
   get: <T>(url: string) => Promise<T>;
@@ -14,6 +7,30 @@ export interface HttpClient {
   put: <T>(url: string, body: any) => Promise<T>;
   setAuthToken: (token: string) => void;
 }
+
+export function useHttpClient() {
+  return React.useContext(context);
+}
+
+export const HttpClientProvider: React.FC<{ client?: HttpClient }> = (
+  props
+) => {
+  return (
+    <context.Provider value={props.client ? props.client : createClient()}>
+      {props.children}
+    </context.Provider>
+  );
+};
+
+export interface ApiResponse {
+  errors?: {
+    [key: string]: string[];
+  };
+}
+
+type Errors = { errors: { [key: string]: string[] } };
+
+type HttpMethod = "GET" | "POST" | "PUT" | "DELETE" | "HEAD" | "OPTIONS";
 
 class HttpClientImpl implements HttpClient {
   api_base = "/api";
@@ -67,4 +84,4 @@ function createClient(): HttpClient {
   return new HttpClientImpl();
 }
 
-export default createClient();
+const context = React.createContext(createClient());
