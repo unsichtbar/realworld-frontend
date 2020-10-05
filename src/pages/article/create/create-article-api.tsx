@@ -1,4 +1,5 @@
-import { HttpClient } from "../../../core/http/HttpClient";
+import { useMutation } from "react-query";
+import { useHttpClient } from "../../../core/http/HttpClient";
 import { CreateArticleFormInputs } from "./CreateArticle";
 
 interface CreateArticleRequestPayload {
@@ -9,14 +10,15 @@ interface CreateArticleRequestPayload {
     tagList?: string[];
   };
 }
-export async function createArticle(
-  payload: CreateArticleFormInputs,
-  httpClient: HttpClient
-): Promise<any> {
-  const mapped: CreateArticleRequestPayload = mapToHttp(payload);
-  httpClient.post("/api/articles", mapped);
-}
 
 function mapToHttp(formInputs: CreateArticleFormInputs) {
   return { article: formInputs } as CreateArticleRequestPayload;
+}
+
+export function useCreateArticle() {
+  const httpClient = useHttpClient();
+  return useMutation((payload: CreateArticleFormInputs) => {
+    const mapped: CreateArticleRequestPayload = mapToHttp(payload);
+    return httpClient.post("/api/articles", mapped);
+  });
 }

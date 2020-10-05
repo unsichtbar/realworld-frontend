@@ -1,5 +1,4 @@
 import React from "react";
-import { useQuery } from "react-query";
 import { useParams } from "react-router-dom";
 import { Tabs, Tab } from "../../core/components/tabs/tabs";
 import { Article, ArticleDisplay } from "../article/view/Article";

@@ -5,7 +5,7 @@ import { Input } from "../../../core/components/input/Input";
 import { Button } from "../../../core/components/button/Button";
 import { TagModel } from "../../../models/TagModel";
 import { LoginRedirect } from "../../login/LoginRedirect";
-import { createArticle } from "./create-article-api";
+import { useCreateArticle } from "./create-article-api";
 import { TextArea } from "../../../core/components/textarea/TextArea";
 import { useHttpClient } from "../../../core/http/HttpClient";
 
@@ -23,18 +23,18 @@ const initialFormValues: CreateArticleFormInputs = {
   tagList: [],
 };
 
-export const CreateArticle: React.FC<any> = (props) => {
+export const CreateArticle: React.FC<{}> = () => {
   const { user } = React.useContext(AuthenticationContext);
   const [formValues, setFormValues] = React.useState(initialFormValues);
-  const httpClient = useHttpClient();
+  const [mutate] = useCreateArticle();
+
   if (!user) {
     return <LoginRedirect />;
   }
 
   function submitForm(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    console.log(formValues);
-    createArticle(formValues, httpClient);
+    const res = mutate(formValues);
   }
 
   function changeForm(
