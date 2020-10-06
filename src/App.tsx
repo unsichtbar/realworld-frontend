@@ -13,10 +13,7 @@ import { Landing } from "./pages/landing/Landing";
 import { ThemeProvider } from "./core/components/theme";
 import { Register } from "./pages/register/Register";
 import { Article } from "./pages/article/view/Article";
-import {
-  AuthenticationContext,
-  AuthenticationProvider,
-} from "./core/auth/Authentication";
+import { useUser, AuthenticationProvider } from "./core/auth/Authentication";
 import { Navbar } from "./core/layout/Navbar";
 import { CreateArticle } from "./pages/article/create/CreateArticle";
 import { Profile } from "./pages/profile/Profile";
@@ -62,7 +59,7 @@ function App() {
 }
 
 const Logout: React.FC<{}> = () => {
-  const { setUser } = React.useContext(AuthenticationContext);
+  const { setUser } = useUser();
   const [timedOut, setTimedout] = React.useState(false);
 
   setTimeout(() => {

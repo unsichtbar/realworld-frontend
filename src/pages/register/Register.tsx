@@ -6,7 +6,8 @@ import { postRegister } from "./api/register-api";
 import { UserModel } from "../../models/UserModel";
 import { Input } from "../../core/components/input/Input";
 import { Button } from "../../core/components/button/Button";
-import { AuthenticationContext } from "../../core/auth/Authentication";
+import { useUser } from "../../core/auth/Authentication";
+import { Redirect } from "react-router-dom";
 interface FormValue {
   value: string;
   dirty: boolean;
@@ -33,13 +34,12 @@ function newFormValue(value: string) {
 }
 
 export const Register: React.FC<{}> = (props) => {
+  const { user, setUser } = useUser();
   const [username, setUsername] = React.useState<FormValue>(createFormValue());
   const [email, setEmail] = React.useState<FormValue>(createFormValue());
 
   const [password, setPassword] = React.useState<FormValue>(createFormValue);
   const [submitted, setSubmitted] = React.useState<boolean>(false);
-
-  const { setUser } = React.useContext(AuthenticationContext);
 
   const [register] = useMutation(postRegister, {
     onSuccess: (user: UserModel) => {
@@ -89,7 +89,9 @@ export const Register: React.FC<{}> = (props) => {
       });
     }
   }
-
+  if (user) {
+    return <Redirect to="/" />;
+  }
   return (
     <div>
       <form>

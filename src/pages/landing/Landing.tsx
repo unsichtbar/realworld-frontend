@@ -34,9 +34,17 @@ const ArticleSnippet: React.FC<{ article: ArticleModel }> = (props) => {
         <span>
           <Avatar src={props.article.author.image} />
         </span>
-        <span style={{ display: "flex", flexDirection: "column" }}>
+        <span
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            marginLeft: ".4em",
+          }}
+        >
           <span>{props.article.author.username}</span>
-          <span>{props.article.createdAt.toUTCString()}</span>
+          <span style={{ fontSize: "smaller" }}>
+            {props.article.createdAt.toUTCString()}
+          </span>
         </span>
       </div>
       <div>

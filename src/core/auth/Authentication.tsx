@@ -41,4 +41,8 @@ export const AuthenticationProvider: React.FC<{}> = (props) => {
   );
 };
 
-export const AuthenticationContext = AuthContext;
+export const useUser = () => {
+  const user = React.useContext(AuthContext);
+  return user;
+};
+//export const AuthenticationContext = AuthContext;

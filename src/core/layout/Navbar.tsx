@@ -1,10 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { AuthenticationContext } from "../auth/Authentication";
+import { useUser } from "../auth/Authentication";
 
 export const Navbar: React.FC<{}> = (props) => {
-  const { user } = React.useContext(AuthenticationContext);
+  const { user } = useUser();
   return (
     <NavbarStyled>
       <div

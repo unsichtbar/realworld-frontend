@@ -37,8 +37,13 @@ const GlobalStyles = createGlobalStyle`
         margin: 0;
         padding: 0;
     }
-    * {
-        
-        font-family: Open-Sans, Helvetica, Sans-Serif;
+    html {
+      font-family: 'Inter', sans-serif;
+    }
+
+    @supports (font-variation-settings: normal) {
+      html {
+        font-family: 'Inter var', sans-serif;
+      }
     }
 `;

@@ -1,5 +1,4 @@
 import React from "react";
-import { AuthenticationContext } from "../../../core/auth/Authentication";
 import { Box } from "../../../core/components/box/box";
 import { Input } from "../../../core/components/input/Input";
 import { Button } from "../../../core/components/button/Button";
@@ -7,7 +6,7 @@ import { TagModel } from "../../../models/TagModel";
 import { LoginRedirect } from "../../login/LoginRedirect";
 import { useCreateArticle } from "./create-article-api";
 import { TextArea } from "../../../core/components/textarea/TextArea";
-import { useHttpClient } from "../../../core/http/HttpClient";
+import { useUser } from "../../../core/auth/Authentication";
 
 export interface CreateArticleFormInputs {
   title: string;
@@ -24,7 +23,7 @@ const initialFormValues: CreateArticleFormInputs = {
 };
 
 export const CreateArticle: React.FC<{}> = () => {
-  const { user } = React.useContext(AuthenticationContext);
+  const { user } = useUser();
   const [formValues, setFormValues] = React.useState(initialFormValues);
   const [mutate] = useCreateArticle();
 
