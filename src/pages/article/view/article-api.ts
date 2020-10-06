@@ -10,13 +10,13 @@ export const useArticle = (id: string) => {
 
 export const useArticleComments = (id: string) => {
   const httpClient = useHttpClient();
-  return useQuery(["article", { slug: id }], getArticleComments(httpClient));
+  return useQuery(["article", id], getArticleComments(httpClient));
 };
 
 function getArticle(httpClient: HttpClient) {
   return async function (
     key: string,
-    vars: {
+    slug: {
       slug: string;
     }
   ): Promise<ArticleModel> {
@@ -34,7 +34,7 @@ function getArticle(httpClient: HttpClient) {
       favorited: false,
       favoritesCount: 5,
       tagList: ["comfy"],
-      title: "Hello world " + vars.slug,
+      title: "Hello world " + slug.slug,
       updatedAt: new Date(),
     };
     return res;

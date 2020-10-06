@@ -7,6 +7,18 @@ export function useFeed() {
   return useQuery("globalFeed", getGlobalFeed(httpClient));
 }
 
+export function useTags() {
+  const httpClient = useHttpClient();
+  return useQuery("tags", getTags(httpClient));
+}
+
+function getTags(httpClient: HttpClient) {
+  return async function (): Promise<{ tags: string[] }> {
+    const tags = { tags: ["react", "angular"] };
+    return tags;
+  };
+}
+
 interface ProfileArticlesQueryResponse {
   articles: ArticleModel[];
   articlesCount: number;

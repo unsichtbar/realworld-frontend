@@ -34,6 +34,7 @@ export const Article: React.FC<{}> = () => {
 export const ArticleDisplay: React.FC<{ article?: ArticleModel }> = (props) => {
   if (props.article) {
     const { author } = props.article;
+    console.log(props.article.title);
     return (
       <Box>
         <Box

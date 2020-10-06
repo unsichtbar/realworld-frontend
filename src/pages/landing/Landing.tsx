@@ -1,14 +1,15 @@
 import * as React from "react";
-import { useQuery } from "react-query";
+import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { Box } from "../../core/components/box/box";
 import { Container } from "../../core/components/container/Container";
 import { ArticleModel } from "../../models/ArticleModel";
 import { Avatar } from "../article/view/Article";
-import { useFeed } from "./landing-api";
+import { useFeed, useTags } from "./landing-api";
 
 export const Landing: React.FC<{}> = (props) => {
   const articles = useFeed();
+  const popularTags = useTags();
   return (
     <Box>
       <section>App Name</section>
@@ -21,7 +22,21 @@ export const Landing: React.FC<{}> = (props) => {
             ))}
           </Container>
         </section>
-        <section style={{ flex: " 0 0 25%" }}>Popular Tags:</section>
+        <section
+          style={{
+            borderRadius: ".2em",
+            padding: "0.5em 1em 1em 0.5em",
+            flex: " 0 0 15%",
+            backgroundColor: "#f3f3f3",
+            width: "10em",
+          }}
+        >
+          <div>Popular Tags</div>
+          <div style={{ display: "flex", flexDirection: "row" }}>
+            {popularTags.isFetched &&
+              popularTags.data?.tags.map((tag) => <Tag tag={tag} key={tag} />)}
+          </div>
+        </section>
       </section>
     </Box>
   );
@@ -58,4 +73,19 @@ const ArticleSnippet: React.FC<{ article: ArticleModel }> = (props) => {
       <hr />
     </div>
   );
+};
+
+const Tag: React.FC<{ tag: string }> = (props) => {
+  const TagStyled = styled.div`
+    border-radius: 0.2em;
+    padding: 0.3em;
+    margin: 0.2em;
+    background-color: #aba;
+    &:hover {
+      filter: brightness(80%);
+      cursor: pointer;
+    }
+  `;
+
+  return <TagStyled>{props.tag}</TagStyled>;
 };
