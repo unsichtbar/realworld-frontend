@@ -6,21 +6,37 @@ import { Container } from "../../core/components/container/Container";
 import { ArticleModel } from "../../models/ArticleModel";
 import { Avatar } from "../article/view/Article";
 import { useFeed, useTags } from "./landing-api";
+import { Tab, Tabs } from "../../core/components/tabs/tabs";
+import { useArticle, useArticles } from "../article/view/article-api";
 
 export const Landing: React.FC<{}> = (props) => {
   const articles = useFeed();
   const popularTags = useTags();
+  const [selectedTag, setSelectedTag] = React.useState<string | null>(null);
+  const tagArticles = useArticles({ tag: selectedTag || undefined });
   return (
     <Box>
       <section>App Name</section>
       <section style={{ display: "flex", flexWrap: "wrap" }}>
         <section style={{ flex: "0 0 75%" }}>
-          <div>Global Feed</div>
-          <Container>
-            {articles.data?.map((article) => (
-              <ArticleSnippet key={article.slug} article={article} />
-            ))}
-          </Container>
+          <Tabs initialTab="Global Feed">
+            <Tab title="Global Feed">
+              <Container>
+                {articles.data?.map((article) => (
+                  <ArticleSnippet key={article.slug} article={article} />
+                ))}
+              </Container>
+            </Tab>
+            {selectedTag && (
+              <Tab title={selectedTag}>
+                <Container>
+                  {tagArticles.data?.map((article) => (
+                    <ArticleSnippet key={article.slug} article={article} />
+                  ))}
+                </Container>
+              </Tab>
+            )}
+          </Tabs>
         </section>
         <section
           style={{
@@ -34,7 +50,9 @@ export const Landing: React.FC<{}> = (props) => {
           <div>Popular Tags</div>
           <div style={{ display: "flex", flexDirection: "row" }}>
             {popularTags.isFetched &&
-              popularTags.data?.tags.map((tag) => <Tag tag={tag} key={tag} />)}
+              popularTags.data?.tags.map((tag) => (
+                <Tag tag={tag} key={tag} onClick={() => setSelectedTag(tag)} />
+              ))}
           </div>
         </section>
       </section>
@@ -75,7 +93,7 @@ const ArticleSnippet: React.FC<{ article: ArticleModel }> = (props) => {
   );
 };
 
-const Tag: React.FC<{ tag: string }> = (props) => {
+const Tag: React.FC<{ tag: string; onClick: () => void }> = (props) => {
   const TagStyled = styled.div`
     border-radius: 0.2em;
     padding: 0.3em;
@@ -87,5 +105,5 @@ const Tag: React.FC<{ tag: string }> = (props) => {
     }
   `;
 
-  return <TagStyled>{props.tag}</TagStyled>;
+  return <TagStyled onClick={props.onClick}>{props.tag}</TagStyled>;
 };
